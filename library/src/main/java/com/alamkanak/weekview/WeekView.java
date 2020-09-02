@@ -683,17 +683,20 @@ public class WeekView extends View {
             }
 
             // Prepare the separator lines for hours.
+           /*For half hour coding start*/
             int i = 0;
-            for (int hourNumber = 0; hourNumber < 24; hourNumber++) {
-                float top = mHeaderHeight + mHeaderRowPadding * 2 + mCurrentOrigin.y + mHourHeight * hourNumber + mTimeTextHeight/2 + mHeaderMarginBottom;
-                if (top > mHeaderHeight + mHeaderRowPadding * 2 + mTimeTextHeight/2 + mHeaderMarginBottom - mHourSeparatorHeight && top < getHeight() && startPixel + mWidthPerDay - start > 0){
-                    hourLines[i * 4] = start;
-                    hourLines[i * 4 + 1] = top;
-                    hourLines[i * 4 + 2] = startPixel + mWidthPerDay;
-                    hourLines[i * 4 + 3] = top;
-                    i++;
+            for (int hourNumber = 0; hourNumber < (MAX_HOUR - MIN_HOUR); hourNumber++) {
+                float top = mHeaderHeight + mHeaderRowPadding * 2 + mCurrentOrigin.y + mHourHeight * hourNumber + mTimeTextHeight / 2 + mHeaderMarginBottom;
+                if (top > mHeaderHeight + mHeaderRowPadding * 2 + mTimeTextHeight/2 + mHeaderMarginBottom - mHourSeparatorHeight && top < getHeight() && startPixel + mWidthPerDay - start > 0) {
+                    for (int j = 0; j < 2; ++j, ++i) {
+                        hourLines[i * 4] = start;
+                        hourLines[i * 4 + 1] = top + mHourHeight * j / 2;
+                        hourLines[i * 4 + 2] = startPixel + mWidthPerDay;
+                        hourLines[i * 4 + 3] = top + mHourHeight * j / 2;
+                    }
                 }
             }
+            /*For Half hour coding ends*/
 
             // Draw the lines for hours.
             canvas.drawLines(hourLines, mHourSeparatorPaint);
